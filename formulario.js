@@ -1,8 +1,13 @@
-var formulario = document.querySelector("#form")
+// Esta app crea una lista de invitados
+
+//Error en QuerySelector
+//Utilizaba #para llamar a la clase. Sin embargo, estaba haciendo referencia a una clase que no existe. y debia ser al id. formulario (.formulario) 
+var formulario = document.querySelector(".formulario")
 
 formulario.onsubmit = function(e) {
 
-  e.prevent();
+//La funcion correcta es preventDefault()
+  e.preventDefault();
   
   var n = formulario.elements[0]
   var e = formulario.elements[1]
@@ -23,19 +28,26 @@ formulario.onsubmit = function(e) {
     e.classList.add("error")
   }
 
-if (nombre.length > 0 
-  && (edad > 18 
+//Error de lógica, la edad debe ser mayor o igual a 18
+
+if (nombre.length > 0  
+  && (edad >= 18 
     && edad < 120) ) {
   agregarInvitado(nombre, edad, nacionalidad)
   }
+
+
+
 }
 
-var botonBorrar = document.createElement("button")
+//Este código está repetido, y debe ser eliminado.
+
+/* var botonBorrar = document.createElement("button")
 botonBorrar.textContent = "Eliminar invitado"
 botonBorrar.id = "boton-borrar"
 var corteLinea = document.createElement("br")
 document.body.appendChild(corteLinea)
-document.body.appendChild(botonBorrar);
+document.body.appendChild(botonBorrar); */
 
 function agregarInvitado(nombre, edad, nacionalidad) {
 
@@ -55,17 +67,24 @@ function agregarInvitado(nombre, edad, nacionalidad) {
 var lista = document.getElementById("lista-de-invitados")
 
 var elementoLista = document.createElement("div")
-elementoLista.classList.added("elemento-lista")
+
+// ERROR!!! 
+//elemento lista requeria un .add, no added 
+
+elementoLista.classList.add("elemento-lista")
 lista.appendChild(elementoLista)
 
-var spanNombre = document.createElement("span")
+//ERROR!!!
+//Nuevamente tenemos código duplicado
+
+/* var spanNombre = document.createElement("span")
 var inputNombre = document.createElement("input")
 var espacio = document.createElement("br")
 spanNombre.textContent = "Nombre: "
 inputNombre.value = nombre 
 elementoLista.appendChild(spanNombre)
 elementoLista.appendChild(inputNombre)
-elementoLista.appendChild(espacio)
+elementoLista.appendChild(espacio) */
 
 function crearElemento(descripcion, valor) {
 var spanNombre = document.createElement("span")
@@ -76,7 +95,7 @@ inputNombre.value = valor
 elementoLista.appendChild(spanNombre)
 elementoLista.appendChild(inputNombre)
 elementoLista.appendChild(espacio)
-}
+}  
 
 crearElemento("Nombre", nombre)
 crearElemento("Edad", edad)
